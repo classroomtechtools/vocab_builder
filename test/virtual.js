@@ -12,7 +12,7 @@
 let moment = require('moment');
 let gas = require('gas-local');
 let ejs = require('ejs');
-let Form = require('./Form.js');
+let Document = require('./Document.js');
 const sourcePath = 'dev';
 
 var googleRunScript = {
@@ -105,7 +105,7 @@ let MockedObjects = {
 
 	FormApp: {
 		getActiveForm: function () {
-			return new Form();
+			return new Document();
 		},
 
 	},

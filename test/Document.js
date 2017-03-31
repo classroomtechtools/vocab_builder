@@ -74,7 +74,7 @@ function Body() {
 	}
 }
 
-function Form() {
+function Document() {
 	this.documentBody = new Body();
 
 	return {
