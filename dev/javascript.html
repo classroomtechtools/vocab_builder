@@ -9,26 +9,70 @@ $(function () {
 		disabled: false,
 	});
 
+	var $clearButton = $('#clearButton').button({
+		disabled: false,
+	});
+
 	// Make the tabs
 	var $tabs = $('#tabs').tabs();
 
-	// When the user clicks on the start button...
+	$('p').select(function (event) {
+		console.log(event);
+	});
+
+	var colorMap = {
+        'black': '#000000',
+        'white': '#ffffff',
+        'red': '#FF0000',
+        'grey': '#777777',
+        'blue': '#337ab7',
+        'green': '#5cb85c',
+        'skyblue': '#5bc0de',
+        'orange': '#f0ad4e',
+    };
+
 	$highlightButton.click(function (event) {
 
-		// 
-		// Interact with the document
-		//
 		console.log('clicked');
+		var getValue = $('#chosenHighlightColor').colorpicker('getValue');
+		if (getValue == null) {
+			console.log("Could get the value of the color?");
+			return;
+		}
+
+		var color = colorMap[ getValue ];
+		if (color == undefined) {
+			console.log("No such color?: ", getValue);
+			return;
+		}
+
 		google.script.run.withSuccessHandler(function () {
 			console.log('highlight success handler');
 		}).withFailureHandler(function (err) { 
 			console.log(err);
-		}).highlight();
+		}).highlight( color );
 
 	});
 
+	$clearButton.click(function (event) {
 
+		google.script.run.withSuccessHandler(function () {
+			console.log('clear success handler');
+		}).withFailureHandler(function (err) { 
+			console.log(err);
+		}).clearHighlight();
 
+	});
+
+    $('#chosenHighlightColor').colorpicker({
+    	container: true,
+    	inline: true,
+    	customClass: 'colorpicker-2x',
+        colorSelectors: colorMap,
+        template: '<div class="colorpicker dropdown-menu">' +
+    '<div class="colorpicker-selectors"></div>' +
+    '</div>'
+    });
 });
 
 </script>

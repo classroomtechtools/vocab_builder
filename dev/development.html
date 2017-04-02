@@ -47,6 +47,10 @@ hr {
 #bodyContent {
     margin: 8px;
 }
+
+.highlight {
+    background-color: yellow;
+}
 </style>
 
 <div id="developmentHtml" style="display:none">
@@ -58,10 +62,11 @@ hr {
 
     <!-- Append -->
     <div id="documentContent">
-<p>Instead of concentrating on the weather, it's the play they focus on; consequently most of the children develop physical and emotional resilience that supports their play during the challenging days. Some children are very aware of the weather in respect of how it will affect their play; the wind blowing in a certain direction means they can't visit their favourite place in the woods. They develop an understanding of cause and effect; they too become weather watchers. If it's getting cold, they have fires, so that's fun.</p>
-<p>Whilst regulations alone would make it unfeasible for most education settings to wave goodbye to the indoors entirely, mainstream teachers are visiting The Secret Garden for inspiration. The nursery receives a huge amount of interest with many visitors and teachers attending workshops. There is an openness and willingness to find out more and to leave with ideas that create better 'outcomes' in the outdoor world for children.</p>
-<p>A shift in mainstream education to follow aspects of the outdoor approach can only be a positive one. All human babies are born needing to play; it's their natural learning drive. They want to explore the world around them, to find out how it works and how to control it. The drive to play comes from within; it's very powerful and is hugely important to children's physical, emotional, social and cognitive development.</p>
-<p>Of course, The Secret Garden has days when activities run less smoothly; there can be hard days of infectious crying, but again it's about supporting those that are having the meltdown and now that they have a lined yurt with a fabulous stove, life seems very easy in the woods. This attitude of turning a testing day, into a cosy cherished experience helps explain the merits of this appealing, convincing approach.</p>
+<textarea id="textarea">Instead of concentrating on the weather, it's the play they focus on; consequently most of the children develop physical and emotional resilience that supports their play during the challenging days. Some children are very aware of the weather in respect of how it will affect their play; the wind blowing in a certain direction means they can't visit their favourite place in the woods. They develop an understanding of cause and effect; they too become weather watchers. If it's getting cold, they have fires, so that's fun.
+Whilst regulations alone would make it unfeasible for most education settings to wave goodbye to the indoors entirely, mainstream teachers are visiting The Secret Garden for inspiration. The nursery receives a huge amount of interest with many visitors and teachers attending workshops. There is an openness and willingness to find out more and to leave with ideas that create better 'outcomes' in the outdoor world for children.
+A shift in mainstream education to follow aspects of the outdoor approach can only be a positive one. All human babies are born needing to play; it's their natural learning drive. They want to explore the world around them, to find out how it works and how to control it. The drive to play comes from within; it's very powerful and is hugely important to children's physical, emotional, social and cognitive development.
+Of course, The Secret Garden has days when activities run less smoothly; there can be hard days of infectious crying, but again it's about supporting those that are having the meltdown and now that they have a lined yurt with a fabulous stove, life seems very easy in the woods. This attitude of turning a testing day, into a cosy cherished experience helps explain the merits of this appealing, convincing approach.
+</textarea>
     </div>
     
     <!-- Append -->
@@ -73,6 +78,8 @@ hr {
     <div id="sidebarTitlebarID" class="sidebarTitlebar">Gamified Journal</div>
 
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.selection/1.0.1/jquery.selection.js"></script>
 
 <script>
 
@@ -112,9 +119,22 @@ $(function () {
     var getter = {
 
         clientSideMocks: {
-            hightlight: function () { 
-                console.log('highlited!');
+            highlight: function () { 
+                $('#textarea').selection('insert', {
+                    text: '<span class="' + 
+                            $('#chosenHighlightColor').colorpicker('getValue') +
+                            '">', 
+                    mode: 'before',
+                });
+                $('#textarea').selection('insert', {
+                    text: '</span>', 
+                    mode: 'after',
+                });
             },
+
+            clearHighlight: function () {
+                console.log("clear not implemented");
+            }
         },
 
         /*
@@ -164,7 +184,9 @@ $(function () {
 
                 // Need to wrap in a function in order for it to be called
                 // This means we canNOT use argument to call anything...
-                return function () { promise };
+                return function () { 
+                    return promise; 
+                };
             }
 
         }

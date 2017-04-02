@@ -5,9 +5,9 @@
 
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/pepper-grinder/jquery-ui.css">
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.1/css/bootstrap-colorpicker.css" />
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.1/js/bootstrap-colorpicker.min.js"></script>
 
   <?!= include('css'); ?>
 
@@ -24,8 +24,12 @@
     </ul>
 
     <div id="selectTab">
-      <div class="title">Select:</div>
-      <div id="highlightButton">Highlight</div>
+      <div class="title">Color:</div>
+      <div id="chosenHighlightColor" data-format="alias" class="input-group colorpicker-component">
+        <input id="colorInput" type="text" value="Black" class="form-control" />
+        <span class="input-group-addon"><i></i></span>
+      </div>
+      <div id="highlightButton">Highlight</div><div id="clearButton">Clear</div>
 
     </div>
 
