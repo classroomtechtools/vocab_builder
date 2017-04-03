@@ -10,10 +10,40 @@
     Called when user clicks on Start button
     Updates the document to have a horizontal rule and command text
 */
-function highlight() {
-    var NORMAL = DocumentApp.ParagraphHeading.NORMAL;
-    app.insertHROnTop();
-    app.insertTextOnTop("Start writing!", NORMAL, true);
+function highlight(color) {
+  Logger.log('color: ', color);
+  var selection = DocumentApp.getActiveDocument().getSelection();
+  if (selection == null) {
+    // some message here
+    return false;
+  }
+
+  var elements = selection.getRangeElements();
+
+  elements.forEach(function(element) {
+      if (element.getElement().getType() == 'TEXT') {
+          var ele = element.getElement();
+          ele.setBackgroundColor(
+         	  element.getStartOffset(), 
+        	  element.getEndOffsetInclusive(), 
+           	  color
+          );
+      }
+  });
+
+  return true;
 }
 
-
+function clearHighlight() {
+    var elements = DocumentApp.getActiveDocument().getSelection().getRangeElements();
+    elements.forEach(function(element) {
+        if (element.getElement().getType() == 'TEXT') {
+            var ele = element.getElement();
+            ele.setBackgroundColor(
+            	element.getStartOffset(),
+            	element.getEndOffsetInclusive(),
+            	null
+            );
+        }
+    });
+}
